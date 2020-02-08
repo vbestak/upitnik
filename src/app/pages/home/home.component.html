@@ -1,0 +1,20 @@
+<div class="custom-container">
+  <div>
+    <h2>
+      <span *ngFor="let letter of welcomeMessage; index as i" [ngClass]="{'minimize': minimize[i]}">
+        {{letter}}
+        <span *ngIf="letter == ' '">
+          &nbsp;
+        </span>
+      </span>
+    </h2>
+  </div>
+  <div>
+    <button class="btn btn-success" *ngIf="!authService.isAuthenticated()" [routerLink]="[ '/login' ]">Login</button>
+    <h2 *ngIf="authService.isAuthenticated()">
+      <span [ngClass]="{minimize: userAnimation}">
+          {{user.value.ime || "User"}}
+      </span>
+    </h2>
+  </div>
+</div>

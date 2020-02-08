@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Upitnik } from 'src/app/models/upitnik';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-upitnik-view',
@@ -7,15 +8,12 @@ import { Upitnik } from 'src/app/models/upitnik';
   styleUrls: ['./upitnik-view.component.css']
 })
 export class UpitnikViewComponent implements OnInit {
-  upitnik:Upitnik = {idUpitnik:1, naslov:"upitnik", opcije:[], sifra:"asdsaffsa", idKorisnik:1};
-
+  @Input() upitnik:Upitnik;
+  @Output() delete: EventEmitter<any> = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit() {
-  }
-
-  delete(){
-    console.log("delete", this.upitnik.idUpitnik);
   }
 
 }

@@ -18,6 +18,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { Interceptor } from './services/interceptor';
 import { UpitnikViewComponent } from './components/upitnik-view/upitnik-view.component';
 import { MyFormsComponent } from './pages/my-forms/my-forms.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MyFormsComponent } from './pages/my-forms/my-forms.component';
     RegisterComponent,
     UpitnikViewComponent,
     MyFormsComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

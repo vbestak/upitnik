@@ -1,4 +1,8 @@
 <div>
+  <div *ngIf="!flaggFilled" class="alert alert-danger">
+    Please enter at least 2 options.
+  </div>
+
   <form [formGroup]="upitnik" (ngSubmit)="sendForm()">
     <div class="form-group">
       <input class="form-control form-control-lg" type="text" formControlName="naslov" placeholder="Type your question here">

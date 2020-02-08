@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class UpitnikComponent implements OnInit {
   upitnik:FormGroup;
+  flaggFilled:boolean = true;
 
   constructor(private fb:FormBuilder, private formService:FormService, private router:Router) { }
 
@@ -34,11 +35,25 @@ export class UpitnikComponent implements OnInit {
   }
 
   sendForm(){
-    this.formService.sendForm(this.upitnik).subscribe((res)=>{
-      console.log(res.body, "pppppp");
-      
-      this.router.navigateByUrl(`form-vote/${res.body['id']}`);
-    });
+    let options = this.getOption();
+    let length = options.length - 1;
+    let filled = 0;
+    
+    for(let i=length; i >= 0; i--){
+      if(options.value[i] != ''){
+        filled+=1;
+      }
+    }
+
+    if(filled >= 2){
+      this.flaggFilled = true;
+      this.formService.sendForm(this.upitnik).subscribe((res)=>{      
+        this.router.navigateByUrl(`form-vote/${res.body['id']}`);
+      });
+    }else{
+      this.flaggFilled = false;
+    }
+    
   }
 
 }

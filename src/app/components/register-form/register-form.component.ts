@@ -11,6 +11,7 @@ import {
   AuthentificationService
 } from 'src/app/services/authentification.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-register-form',
@@ -53,7 +54,7 @@ export class RegisterFormComponent implements OnInit {
     if (form.valid && this.passwordMatch)
       this.authService.register(form.value).subscribe(d => {
         if (d.body['status'] == 'OK') {
-          this.authService.user = d.body['user'];
+          this.authService.user.next(d.body['user'] as User);
           this.authService.token = d.body['token'];
           sessionStorage.setItem('token', this.authService.token);
           this.router.navigateByUrl("/");

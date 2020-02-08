@@ -1,1 +1,6 @@
-<app-upitnik-view></app-upitnik-view>
+<div class="container" style="padding: 26px 12px;">
+    <h3>My straw pools:</h3>
+    <div *ngFor="let upitnik of upitnici">
+        <app-upitnik-view (delete)="deleteUpitnik($event)" [upitnik]="upitnik"></app-upitnik-view>
+    </div>
+</div>

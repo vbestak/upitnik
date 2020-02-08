@@ -13,19 +13,19 @@ import {FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class AuthentificationService {
-  user:BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  user:BehaviorSubject<User>;
   token: string;
   
 
-  constructor(private http: HttpClient, private router:Router) {}
+  constructor(private http: HttpClient, private router:Router) {
+    this.user = new BehaviorSubject<User>(new User());
+  }
 
   whoAmI() {
-    this.http.get("http://localhost:8081/login/", {
+    this.http.get("http://localhost:8081/whoAmI", {
       responseType: "json",
       observe: "response"
-    }).subscribe((res) => {
-      console.log(res, "whoami");
-      
+    }).subscribe((res) => {      
       this.user.next(res.body as User);
     });
   }
@@ -39,8 +39,8 @@ export class AuthentificationService {
   }
 
   getUser():Observable<User> {
-    ///TODO
-    if (this.user.getValue().ime == undefined)
+    ///TODO    
+    if (this.user.value.ime == undefined)
       this.whoAmI();  
     return this.user;
   }
