@@ -1,0 +1,32 @@
+input[type=radio]{
+    transform:scale(1.15);
+}
+
+label{
+    padding: 8px;
+}
+
+.container-buttons{
+    padding: 6px;
+}
+
+.container-buttons button{
+    margin-right: 8px;
+}
+
+.container-sharing{
+    padding: 12px 0;
+}
+
+.container-sharing button{
+    margin: 8px 0 0 0;
+}
+
+span{
+    display: block;
+}
+
+.link{
+    display: contents;
+    text-decoration-line: underline;
+}

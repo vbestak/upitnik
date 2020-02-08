@@ -1,0 +1,8 @@
+    <div class="alert alert-info clearfix">
+      <span class="float-left">
+        {{upitnik.naslov}}
+      </span>
+
+      <button class="btn btn-danger btn-sm float-right" (click)="delete()">Delete</button>
+      <button class="btn btn-success btn-sm float-right" [routerLink]="[ '/form-vote', upitnik.sifra ]">Go to</button>
+    </div>

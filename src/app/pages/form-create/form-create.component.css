@@ -1,0 +1,15 @@
+.upitnik-container{
+    width: 80%;
+    max-width: 1000px;
+    min-width: 300px;
+    padding: 32px;
+}
+
+.container-custom{
+    width: 100%;
+    min-width: 300px;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

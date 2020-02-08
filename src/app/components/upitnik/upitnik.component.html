@@ -1,0 +1,15 @@
+<div>
+  <form [formGroup]="upitnik" (ngSubmit)="sendForm()">
+    <div class="form-group">
+      <input class="form-control form-control-lg" type="text" formControlName="naslov" placeholder="Type your question here">
+    </div>
+
+    <div formGroupName="opcije">
+      <div class="form-group" *ngFor="let option of getOption().controls; index as i">
+        <input class="form-control" type="text" [formControl]="getOption().controls[i]" placeholder="Enter pool option"
+          (focus)="addOption(i)">
+      </div>
+    </div>
+    <button class="btn btn-primary" [disabled]="upitnik.invalid" type="submit">Pošalji</button>
+  </form>
+</div>

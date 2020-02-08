@@ -1,0 +1,39 @@
+<h2> {{ upitnik.naslov }} </h2>
+
+<form *ngIf="!results; else res" #form="ngForm" (ngSubmit)="vote(form)" novalidate>
+    <div *ngFor="let opcija of upitnik.opcije">
+        <label class="form-check-label">
+          <input class="form-control-input" type="radio" name="opcije" [value]="opcija.idOpcije" ngModel> {{opcija.opcija}}
+        </label>
+    </div>
+    <div class="container-buttons">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.dirty">Vote</button>
+      <button class="btn btn-info" type="button" (click)="getResults()">Results</button>
+    </div>
+</form>
+
+<ng-template #res>
+<div>
+  <div *ngFor="let opcija of upitnik.opcije">
+    <p>{{opcija.opcija}}: {{opcija.glasovi/totalVotes() | percent:'1.0-2'}} ({{opcija.glasovi + (opcija.glasovi === 1 ? " vote" : " votes")}})</p>
+    <div class="progress">
+      <div class="progress-bar"  [ngStyle]="{'width.%':opcija.glasovi * 100 / totalVotes()}"> &nbsp; </div>
+    </div>
+  </div>
+
+  <p>Total votes: {{totalVotes()}} </p>
+</div>
+</ng-template>
+
+<div class="container-sharing">
+  <div>
+    <span>
+      Share this strawpool.
+    </span>
+    <span>
+      Link: &nbsp; "<span class="link">{{fullUrl}}</span>" &nbsp;  
+    </span>
+  </div>
+
+  <button class="btn btn-info" (click)="copyToClipboard(fullUrl)">Copy link</button>
+</div>

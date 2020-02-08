@@ -1,0 +1,79 @@
+<div class="alert alert-danger" *ngIf="sentAndInvalid">
+  Please fill in data.
+</div>
+
+<form [formGroup]="credentials" (ngSubmit)="register(credentials)" novalidate>
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <div [ngClass]="{'alert alert-danger': registerDescription.username || invalidTouchedControl('username')}">
+      <div *ngIf="registerDescription.username">
+        {{registerDescription.username}}
+      </div>
+
+      <div *ngIf="credentials.get('username').hasError('required') && invalidTouchedControl('username')">
+        Username is required.
+      </div>
+      
+      <div *ngIf="credentials.get('username').hasError('minlength') && invalidTouchedControl('username')">
+        Username must have at least {{usernameMinLength}} characters.
+      </div>
+
+
+      <input class="form-control" type="text" name="username" formControlName="username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+
+    <div [ngClass]="{'alert alert-danger': registerDescription.email || invalidTouchedControl('email')}">
+      <div *ngIf="registerDescription.email">
+        {{registerDescription.email}}
+      </div>
+
+      <div *ngIf="credentials.get('email').hasError('required') && invalidTouchedControl('email')">
+        Email is required.
+      </div>
+      
+      <div *ngIf="credentials.get('email').hasError('email') && invalidTouchedControl('email')">
+        Please type valid email.
+      </div>
+
+      <input class="form-control" type="email" name="email" formControlName="email">
+    </div>
+  </div>
+
+  <div class="form-group form-inline">
+    <div class="col-6">
+      <label for="password">Password:</label>
+      <div [ngClass]="{'alert alert-danger': invalidTouchedControl('password')}">
+        
+        <div *ngIf="credentials.get('password').hasError('required') && invalidTouchedControl('password')">
+         Password is required.
+        </div>
+        
+        <div *ngIf="credentials.get('password').hasError('minlength') && invalidTouchedControl('password')">
+          Password must have at least {{passwordMinLength}} characters.
+        </div>
+
+
+        <input class="form-control" type="password" name="password" formControlName="password">
+      </div>
+    </div>
+
+    <div class="col-6">
+      <label for="password">Repeat password:</label>
+      <div [ngClass]="{'alert alert-danger': !passwordMatch }">
+        <div *ngIf="!passwordMatch">
+          Passwords must match!
+        </div>
+        <input class="form-control" type="password" name="password" formControlName="passwordRepeat">
+      </div>
+    </div>
+  </div>
+
+
+  <div>
+    <button class="btn btn-info" type="submit">Register</button>
+  </div>
+</form>
