@@ -44,9 +44,10 @@ module.exports = function (express, pool, jwt, secret, bcrypt) {
                 let rowsAddUser = await conn.query(`INSERT INTO korisnik(ime, email, lozinka, datumKreiranja, razina)
                                          VALUES (?, ?, ?, NOW(), 0);`, [body.username, body.email, hash]);
 
-                let rows = await conn.query('SELECT idKorisnik, ime, lozinka, email, razina FROM korisnik WHERE ime=?;', body.username);
+                let rows = await conn.query('SELECT idKorisnik, ime, email, razina FROM korisnik WHERE ime=?;', body.username);
 
                 const token = jwt.sign({
+                    idKorisnik: rows[0].idKorisnik,
                     ime: rows[0].ime,
                     email: rows[0].email,
                     razina: rows[0].razina

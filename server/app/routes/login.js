@@ -38,6 +38,7 @@ module.exports = function (express, pool, jwt, secret, bcrypt) {
             }
 
             let compare = await bcrypt.compare(req.body.password, rows[0].lozinka);
+            delete rows[0].lozinka;
 
             if (compare) {
                 delete rows[0]['lozinka'];
