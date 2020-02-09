@@ -6,7 +6,7 @@ module.exports={
         connectionLimit : 100,
         host     : 'localhost',
         user     : 'root',
-        password : 'tvz12',
+        password : '',
         database : 'upitnik',
         debug    :  false
     },
