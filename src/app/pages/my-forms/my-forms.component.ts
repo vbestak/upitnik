@@ -9,7 +9,7 @@ import { Upitnik } from 'src/app/models/upitnik';
   styleUrls: ['./my-forms.component.css']
 })
 export class MyFormsComponent implements OnInit {
-  upitnici:Upitnik[];
+  upitnici:Upitnik[] = new Array<Upitnik>();
   
   constructor(private formService:FormService) { }
 

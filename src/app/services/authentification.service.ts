@@ -15,14 +15,13 @@ import {FormGroup } from '@angular/forms';
 export class AuthentificationService {
   user:BehaviorSubject<User>;
   token: string;
-  
 
   constructor(private http: HttpClient, private router:Router) {
     this.user = new BehaviorSubject<User>(new User());
   }
 
   whoAmI() {
-    this.http.get("http://localhost:8081/whoAmI", {
+    this.http.get("http://localhost:8081/rlogin/whoAmI", {
       responseType: "json",
       observe: "response"
     }).subscribe((res) => {      
@@ -35,7 +34,7 @@ export class AuthentificationService {
   }
 
   register(registerData:FormGroup):Observable<HttpResponse<Object>>{
-    return this.http.post(`http://localhost:8081/register/`, registerData, {observe:"response", responseType:"json"});
+    return this.http.post(`http://localhost:8081/rregister/`, registerData, {observe:"response", responseType:"json"});
   }
 
   getUser():Observable<User> {
@@ -50,7 +49,7 @@ export class AuthentificationService {
   }
 
   login(credentials:String[]):Observable<HttpResponse<Object>> {
-    return this.http.post('http://localhost:8081/login/', credentials, {responseType:"json", observe:"response"}); 
+    return this.http.post('http://localhost:8081/rlogin', credentials, {responseType:"json", observe:"response"}); 
   }
 
   logout() {

@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">
+    {{comment.imeKorisnik}} at {{ comment.datum | date:"MM/dd/yy HH:mm" }}h
+  </div>
+  <div class="card-body">
+    <div *ngIf="!edit">
+      {{comment.comment}}
+    </div>
+    <div *ngIf="edit" class="md-form">
+      <textarea [(ngModel)]="comment.comment" class="md-textarea form-control"></textarea>
+    </div>
+
+    <div class="float-right">
+      <button *ngIf="canEdit()" (click)="edit = true" class="btn btn-info" style="margin-right: 6px;">Edit</button>
+      <button *ngIf="edit" (click)="editComment()" class="btn btn-success" style="margin-right: 6px;">Finish editing</button>
+
+      <button *ngIf="canDelete()" [disabled]="edit" (click)="delete()" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>

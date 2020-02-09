@@ -1,6 +1,30 @@
 <div class="container-custom">
-    <div class="upitnik-container">
-        <app-upitnik-vote></app-upitnik-vote>
+  <div class="upitnik-container">
+    <div>
+      <app-upitnik-vote [upitnik]="upitnik"></app-upitnik-vote>
     </div>
   </div>
-  
+
+  <div class="comments-container">
+    <div class="md-form">
+        <label for="comment">Comment:</label>
+        <textarea [(ngModel)]="newComment" id="comment" class="md-textarea form-control" rows="3" placeholder="Text..."></textarea>
+        
+        <div style="margin-top: 8px;">
+            <button (click)="addComment()" class="btn btn-success">Add comment</button>
+        </div>
+    </div>
+    
+    <br>
+    <div>
+        <div *ngIf="comments.length == 0" class="alert alert-info">
+            No comments
+        </div>
+
+        <div *ngFor="let comment of comments" style="margin-top: 12px;">
+            <app-comment (eComment)="editComment($event)" (deleteComment)="deleteComment($event)" [comment]="comment" [idKorisnikaUpita]="upitnik.idKorisnik" [user]="user"></app-comment>
+        </div>
+    </div>
+  </div>
+
+</div>

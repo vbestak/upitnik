@@ -1,10 +1,3 @@
-/* bcrypt.hash('bacon', 10,async function(err, hash) {
-    console.log(hash, "hash");
-    let valid = await bcrypt.compare("bacon", "$2a$10$ah4NoerFcHifIm0vX9ju8eN1xUkLtddQok54gYGRUvhhVWy7l7rc6") ;
-    console.log(valid, "valid");
-    
-}); */
-
 module.exports = function (express, pool, jwt, secret, bcrypt) {
     let authRouter = express.Router();
 

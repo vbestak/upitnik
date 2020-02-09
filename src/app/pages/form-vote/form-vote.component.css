@@ -1,4 +1,4 @@
-.upitnik-container{
+.upitnik-container, .comments-container{
     width: 80%;
     max-width: 1000px;
     min-width: 300px;
@@ -10,5 +10,6 @@
     min-width: 300px;
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
+    flex-direction: column;
 }

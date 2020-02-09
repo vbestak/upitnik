@@ -1,11 +1,8 @@
 module.exports = function (express, pool) {
     let router = express.Router();
     let idGen = require("shortid");
-
-    router.route('/').get(async function (req, res) {
-        console.log(req.originalUrl, "get request");
-        res.end();
-    }).post(async function (req, res) {
+    
+    router.post('/', async function (req, res) {
         let body = req.body;
         let sifra = idGen.generate();
         console.log(body, "tijelo - kreiraj formu");
@@ -27,13 +24,7 @@ module.exports = function (express, pool) {
         }
         
         res.end();
-    }).put(async function (req, res) {
-        console.log(req.originalUrl, "put request");
-        res.end();
-    }).delete(async function (req, res) {
-        console.log(req.originalUrl, "delete request");
-        res.end();
     });
-
+    
     return router;
 }

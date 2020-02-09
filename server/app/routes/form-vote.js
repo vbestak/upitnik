@@ -29,7 +29,7 @@ module.exports = function (express, pool) {
         res.end();
     });
     
-    router.route('/:sifra').get(async function (req, res) {
+    router.route('/upitnik/:sifra').get(async function (req, res) {
         //DOHVATI UPITNIK S xY SIFROM
         let upitnik;
         let sifra = req.params.sifra;

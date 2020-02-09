@@ -1,8 +1,9 @@
 module.exports = function (express, pool, jwt, secret, bcrypt) {
     let authRouter = express.Router();
 
-    authRouter.get('/', async function (req, res) {
-        let token = req.params.token;
+    authRouter.get('/whoAmI', async function (req, res) {
+        let token = req.headers['x-access-token'];
+        console.log(token);
         
         jwt.verify(token, secret, function (err, decoded){
             if (err){
@@ -13,7 +14,7 @@ module.exports = function (express, pool, jwt, secret, bcrypt) {
             } else {
                 console.log("user", decoded);
                 
-                res.write(decoded);
+                res.json(decoded);
                 res.end();
             }
         });
@@ -32,7 +33,7 @@ module.exports = function (express, pool, jwt, secret, bcrypt) {
 
                 res.json({
                     status: 'NOT OK',
-                    description: 'Username doesnt exist'
+                    description: 'Username doesn\'t exist'
                 });
 
             }
@@ -50,7 +51,8 @@ module.exports = function (express, pool, jwt, secret, bcrypt) {
                 }, secret, {
                     expiresIn: 1440
                 });
-
+                console.log(token,"token1");
+                
                 res.json({
                     status: 'OK',
                     description:"Success",

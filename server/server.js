@@ -5,10 +5,13 @@ const mysql = require('promise-mysql');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const port = process.env.PORT || 8081;
+const config = require('./config');
+const port = config.port;
+const secret = config.secret;
 
 var tokenCheck = function (req, res, next) {
     const token = req.body.token || req.params.token || req.headers['x-access-token'];
+
     if(token == undefined){
         //pocetni cors upit
         res.end();
@@ -34,22 +37,13 @@ var tokenCheck = function (req, res, next) {
     }
   }
 
-const secret="loremipsum7725";
-
 //connection pool
-let pool=mysql.createPool({
-    connectionLimit : 100,
-    host     : 'localhost',
-    user     : 'root',
-    password : 'tvz12',
-    database : 'upitnik',
-    debug    :  false
-});
+let pool=mysql.createPool(config.pool);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'/public/app'));
 
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -65,23 +59,20 @@ const fvRouter = require("./app/routes/form-vote.js")(express, pool, jwt, secret
 const loginRouter = require("./app/routes/login.js")(express, pool, jwt, secret, bcrypt);
 const registerRouter = require("./app/routes/register.js")(express, pool, jwt, secret, bcrypt);
 const myFormsRouter = require("./app/routes/my-forms.js")(express, pool);
+const commentRouter = require("./app/routes/comment")(express, pool);
 
-app.use('/login', loginRouter);
-app.use('/register', registerRouter);
+app.use('/rlogin', loginRouter);
+app.use('/rregister', registerRouter);
 
-app.use(tokenCheck);
+app.use('/rform-create', tokenCheck, fcRouter);
+app.use('/rform-vote', tokenCheck, fvRouter);
+app.use('/rmy-forms', tokenCheck, myFormsRouter);
+app.use('/rcomment', tokenCheck, commentRouter);
 
-app.get('/whoAmI', function(req,res){
-    res.json(req.decoded);
+app.get('*', function(req, res) {
+    console.log("send file");
+    res.sendFile(path.join(__dirname + '/public/app/index.html'));
 });
-
-app.use('/form-create', fcRouter);
-app.use('/form-vote', fvRouter);
-app.use('/my-forms', myFormsRouter);
-
-/* app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index4.html'));
-}); */
 
 app.listen(port);
 console.log('Running on port ' + port,);

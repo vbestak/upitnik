@@ -19,6 +19,7 @@ import { Interceptor } from './services/interceptor';
 import { UpitnikViewComponent } from './components/upitnik-view/upitnik-view.component';
 import { MyFormsComponent } from './pages/my-forms/my-forms.component';
 import { HomeComponent } from './pages/home/home.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HomeComponent } from './pages/home/home.component';
     UpitnikViewComponent,
     MyFormsComponent,
     HomeComponent,
+    CommentComponent,
   ],
   imports: [
     BrowserModule,

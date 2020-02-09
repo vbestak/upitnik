@@ -17,7 +17,7 @@ module.exports = function (express, pool) {
         res.end();
     })
 
-    router.get('/', async (req, res)=>{
+    router.get('/upitnici', async (req, res)=>{
         //get all upitnici
         try {
             let conn = await (await pool).getConnection();
