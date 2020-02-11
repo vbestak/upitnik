@@ -2758,7 +2758,7 @@
       }
 
       whoAmI() {
-        this.http.get("http://localhost:8081/rlogin/whoAmI", {
+        this.http.get("/rlogin/whoAmI", {
           responseType: "json",
           observe: "response"
         }).subscribe(res => {
@@ -2771,7 +2771,7 @@
       }
 
       register(registerData) {
-        return this.http.post("http://localhost:8081/rregister/", registerData, {
+        return this.http.post("/rregister/", registerData, {
           observe: "response",
           responseType: "json"
         });
@@ -2788,7 +2788,7 @@
       }
 
       login(credentials) {
-        return this.http.post('http://localhost:8081/rlogin', credentials, {
+        return this.http.post('/rlogin', credentials, {
           responseType: "json",
           observe: "response"
         });
@@ -2858,25 +2858,25 @@
       }
 
       editComment(comment) {
-        return this.http.put("http://localhost:8081/rcomment/", comment, {
+        return this.http.put("/rcomment/", comment, {
           observe: "response"
         });
       }
 
       deleteComment(id) {
-        return this.http.delete("http://localhost:8081/rcomment/".concat(id), {
+        return this.http.delete("/rcomment/".concat(id), {
           observe: "response"
         });
       }
 
       getComments(idUpitnik) {
-        return this.http.get("http://localhost:8081/rcomment/comments/".concat(idUpitnik), {
+        return this.http.get("/rcomment/comments/".concat(idUpitnik), {
           observe: "response"
         });
       }
 
       addComment(comment, idUpitnik) {
-        return this.http.post('http://localhost:8081/rcomment', {
+        return this.http.post('/rcomment', {
           comment: comment,
           idUpitnik: idUpitnik
         }, {
@@ -2885,24 +2885,24 @@
       }
 
       vote(form) {
-        return this.http.post('http://localhost:8081/rform-vote/vote', form.value, {
+        return this.http.post('/rform-vote/vote', form.value, {
           observe: 'response',
           responseType: "text"
         });
       }
 
       deleteUpitnik(id) {
-        return this.http.delete("http://localhost:8081/rmy-forms/".concat(id));
+        return this.http.delete("/rmy-forms/".concat(id));
       }
 
       getUpitnici() {
-        return this.http.get("http://localhost:8081/rmy-forms/upitnici", {
+        return this.http.get("/rmy-forms/upitnici", {
           observe: "response"
         });
       }
 
       getUpitnik(sifra) {
-        return this.http.get("http://localhost:8081/rform-vote/upitnik/".concat(sifra), {
+        return this.http.get("/rform-vote/upitnik/".concat(sifra), {
           observe: "response"
         });
       }
@@ -2917,7 +2917,7 @@
           }
         }
 
-        return this.http.post("http://localhost:8081/rform-create/", form.value, {
+        return this.http.post("/rform-create/", form.value, {
           responseType: "json",
           observe: "response"
         });

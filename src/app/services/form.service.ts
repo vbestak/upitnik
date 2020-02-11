@@ -13,35 +13,35 @@ export class FormService {
   constructor(private http:HttpClient) { }
 
   editComment(comment:Comment):Observable<HttpResponse<object>>{
-    return this.http.put(`http://localhost:8081/rcomment/`, comment, {observe:"response"});
+    return this.http.put(`/rcomment/`, comment, {observe:"response"});
   }
 
   deleteComment(id:number):Observable<HttpResponse<object>>{
-    return this.http.delete(`http://localhost:8081/rcomment/${id}`, {observe:"response"});
+    return this.http.delete(`/rcomment/${id}`, {observe:"response"});
   }
 
   getComments(idUpitnik:number):Observable<HttpResponse<object>>{
-    return this.http.get(`http://localhost:8081/rcomment/comments/${idUpitnik}`, {observe:"response"})
+    return this.http.get(`/rcomment/comments/${idUpitnik}`, {observe:"response"})
   }
 
   addComment(comment:String, idUpitnik:number):Observable<HttpResponse<object>>{
-    return this.http.post('http://localhost:8081/rcomment', {comment:comment, idUpitnik:idUpitnik}, {observe:"response"});
+    return this.http.post('/rcomment', {comment:comment, idUpitnik:idUpitnik}, {observe:"response"});
   }
 
   vote(form:NgForm):Observable<HttpResponse<string>>{
-    return this.http.post('http://localhost:8081/rform-vote/vote', form.value, {observe:'response', responseType:"text"});
+    return this.http.post('/rform-vote/vote', form.value, {observe:'response', responseType:"text"});
   }
 
   deleteUpitnik(id:number){
-    return this.http.delete(`http://localhost:8081/rmy-forms/${id}`);
+    return this.http.delete(`/rmy-forms/${id}`);
   }
 
   getUpitnici():Observable<HttpResponse<object>>{
-    return this.http.get(`http://localhost:8081/rmy-forms/upitnici`, {observe:"response"});
+    return this.http.get(`/rmy-forms/upitnici`, {observe:"response"});
   }
 
   getUpitnik(sifra:String):Observable<HttpResponse<object>>{
-    return this.http.get(`http://localhost:8081/rform-vote/upitnik/${sifra}`, {observe:"response"});
+    return this.http.get(`/rform-vote/upitnik/${sifra}`, {observe:"response"});
   }
 
   sendForm(form:FormGroup):Observable<HttpResponse<object>>{
@@ -54,6 +54,6 @@ export class FormService {
       }
     }
     
-    return this.http.post("http://localhost:8081/rform-create/", form.value, {responseType:"json", observe:"response"});
+    return this.http.post("/rform-create/", form.value, {responseType:"json", observe:"response"});
   }
 }

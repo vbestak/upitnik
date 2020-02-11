@@ -21,7 +21,7 @@ export class AuthentificationService {
   }
 
   whoAmI() {
-    this.http.get("http://localhost:8081/rlogin/whoAmI", {
+    this.http.get("/rlogin/whoAmI", {
       responseType: "json",
       observe: "response"
     }).subscribe((res) => {      
@@ -34,7 +34,7 @@ export class AuthentificationService {
   }
 
   register(registerData:FormGroup):Observable<HttpResponse<Object>>{
-    return this.http.post(`http://localhost:8081/rregister/`, registerData, {observe:"response", responseType:"json"});
+    return this.http.post(`/rregister/`, registerData, {observe:"response", responseType:"json"});
   }
 
   getUser():Observable<User> {
@@ -49,7 +49,7 @@ export class AuthentificationService {
   }
 
   login(credentials:String[]):Observable<HttpResponse<Object>> {
-    return this.http.post('http://localhost:8081/rlogin', credentials, {responseType:"json", observe:"response"}); 
+    return this.http.post('/rlogin', credentials, {responseType:"json", observe:"response"}); 
   }
 
   logout() {

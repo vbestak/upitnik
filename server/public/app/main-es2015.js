@@ -1647,7 +1647,7 @@ let AuthentificationService = class AuthentificationService {
         this.user = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](new _models_User__WEBPACK_IMPORTED_MODULE_4__["User"]());
     }
     whoAmI() {
-        this.http.get("http://localhost:8081/rlogin/whoAmI", {
+        this.http.get("/rlogin/whoAmI", {
             responseType: "json",
             observe: "response"
         }).subscribe((res) => {
@@ -1658,7 +1658,7 @@ let AuthentificationService = class AuthentificationService {
         return sessionStorage.getItem('token') ? true : false;
     }
     register(registerData) {
-        return this.http.post(`http://localhost:8081/rregister/`, registerData, { observe: "response", responseType: "json" });
+        return this.http.post(`/rregister/`, registerData, { observe: "response", responseType: "json" });
     }
     getUser() {
         ///TODO    
@@ -1670,7 +1670,7 @@ let AuthentificationService = class AuthentificationService {
         return this.token || sessionStorage.getItem('token');
     }
     login(credentials) {
-        return this.http.post('http://localhost:8081/rlogin', credentials, { responseType: "json", observe: "response" });
+        return this.http.post('/rlogin', credentials, { responseType: "json", observe: "response" });
     }
     logout() {
         sessionStorage.removeItem('token');
@@ -1713,28 +1713,28 @@ let FormService = class FormService {
         this.http = http;
     }
     editComment(comment) {
-        return this.http.put(`http://localhost:8081/rcomment/`, comment, { observe: "response" });
+        return this.http.put(`/rcomment/`, comment, { observe: "response" });
     }
     deleteComment(id) {
-        return this.http.delete(`http://localhost:8081/rcomment/${id}`, { observe: "response" });
+        return this.http.delete(`/rcomment/${id}`, { observe: "response" });
     }
     getComments(idUpitnik) {
-        return this.http.get(`http://localhost:8081/rcomment/comments/${idUpitnik}`, { observe: "response" });
+        return this.http.get(`/rcomment/comments/${idUpitnik}`, { observe: "response" });
     }
     addComment(comment, idUpitnik) {
-        return this.http.post('http://localhost:8081/rcomment', { comment: comment, idUpitnik: idUpitnik }, { observe: "response" });
+        return this.http.post('/rcomment', { comment: comment, idUpitnik: idUpitnik }, { observe: "response" });
     }
     vote(form) {
-        return this.http.post('http://localhost:8081/rform-vote/vote', form.value, { observe: 'response', responseType: "text" });
+        return this.http.post('/rform-vote/vote', form.value, { observe: 'response', responseType: "text" });
     }
     deleteUpitnik(id) {
-        return this.http.delete(`http://localhost:8081/rmy-forms/${id}`);
+        return this.http.delete(`/rmy-forms/${id}`);
     }
     getUpitnici() {
-        return this.http.get(`http://localhost:8081/rmy-forms/upitnici`, { observe: "response" });
+        return this.http.get(`/rmy-forms/upitnici`, { observe: "response" });
     }
     getUpitnik(sifra) {
-        return this.http.get(`http://localhost:8081/rform-vote/upitnik/${sifra}`, { observe: "response" });
+        return this.http.get(`/rform-vote/upitnik/${sifra}`, { observe: "response" });
     }
     sendForm(form) {
         let options = form.get('opcije');
@@ -1744,7 +1744,7 @@ let FormService = class FormService {
                 options.removeAt(i);
             }
         }
-        return this.http.post("http://localhost:8081/rform-create/", form.value, { responseType: "json", observe: "response" });
+        return this.http.post("/rform-create/", form.value, { responseType: "json", observe: "response" });
     }
 };
 FormService.ctorParameters = () => [
