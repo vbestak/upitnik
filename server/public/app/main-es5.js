@@ -305,7 +305,7 @@
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"container\" style=\"padding: 26px 12px;\">\n    <h3>My straw pools:</h3>\n    <div class=\"alert alert-danger\" *ngIf=\"upitnici.length == 0\">\n        You dont have any polls!\n    </div>\n    <div *ngFor=\"let upitnik of upitnici\">\n        <app-upitnik-view (delete)=\"deleteUpitnik($event)\" [upitnik]=\"upitnik\"></app-upitnik-view>\n    </div>\n</div>";
+    __webpack_exports__["default"] = "<div class=\"container\" style=\"padding: 26px 12px;\">\n    <h3>My straw pools:</h3>\n    <div class=\"alert alert-danger\" *ngIf=\"upitnici.length == 0 && checked\">\n        You dont have any polls!\n    </div>\n    <div *ngFor=\"let upitnik of upitnici\">\n        <app-upitnik-view (delete)=\"deleteUpitnik($event)\" [upitnik]=\"upitnik\"></app-upitnik-view>\n    </div>\n</div>";
     /***/
   },
 
@@ -2022,7 +2022,9 @@
         if (filled >= 2) {
           this.flaggFilled = true;
           this.formService.sendForm(this.upitnik).subscribe(res => {
-            this.router.navigateByUrl("form-vote/".concat(res.body['id']));
+            setTimeout(() => {
+              this.router.navigateByUrl("form-vote/".concat(res.body['id']));
+            }, 500);
           });
         } else {
           this.flaggFilled = false;
@@ -2277,9 +2279,6 @@
         this.authService.getUser().subscribe(user => {
           this.user = user;
         });
-      }
-
-      ngOnInit() {
         let s = this.aRoute.paramMap.subscribe(params => {
           this.id = params.get('id');
           this.subscriptions.add(this.formService.getUpitnik(this.id).subscribe(res => {
@@ -2289,6 +2288,8 @@
         });
         this.subscriptions.add(s);
       }
+
+      ngOnInit() {}
 
       ngOnDestroy() {
         this.subscriptions.unsubscribe();
@@ -2589,13 +2590,14 @@
       constructor(formService) {
         this.formService = formService;
         this.upitnici = new Array();
-      }
-
-      ngOnInit() {
+        this.checked = false;
         this.formService.getUpitnici().subscribe(res => {
           this.upitnici = res.body;
+          this.checked = true;
         });
       }
+
+      ngOnInit() {}
 
       deleteUpitnik(idUpitnik) {
         this.formService.deleteUpitnik(idUpitnik).subscribe(res => {
@@ -2756,7 +2758,7 @@
       }
 
       whoAmI() {
-        this.http.get("/rlogin/whoAmI", {
+        this.http.get("http://localhost:8081/rlogin/whoAmI", {
           responseType: "json",
           observe: "response"
         }).subscribe(res => {
@@ -2769,7 +2771,7 @@
       }
 
       register(registerData) {
-        return this.http.post("/rregister/", registerData, {
+        return this.http.post("http://localhost:8081/rregister/", registerData, {
           observe: "response",
           responseType: "json"
         });
@@ -2786,7 +2788,7 @@
       }
 
       login(credentials) {
-        return this.http.post('/rlogin', credentials, {
+        return this.http.post('http://localhost:8081/rlogin', credentials, {
           responseType: "json",
           observe: "response"
         });
@@ -2856,25 +2858,25 @@
       }
 
       editComment(comment) {
-        return this.http.put("/rcomment/", comment, {
+        return this.http.put("http://localhost:8081/rcomment/", comment, {
           observe: "response"
         });
       }
 
       deleteComment(id) {
-        return this.http.delete("/rcomment/".concat(id), {
+        return this.http.delete("http://localhost:8081/rcomment/".concat(id), {
           observe: "response"
         });
       }
 
       getComments(idUpitnik) {
-        return this.http.get("/rcomment/comments/".concat(idUpitnik), {
+        return this.http.get("http://localhost:8081/rcomment/comments/".concat(idUpitnik), {
           observe: "response"
         });
       }
 
       addComment(comment, idUpitnik) {
-        return this.http.post('/rcomment', {
+        return this.http.post('http://localhost:8081/rcomment', {
           comment: comment,
           idUpitnik: idUpitnik
         }, {
@@ -2883,24 +2885,24 @@
       }
 
       vote(form) {
-        return this.http.post('/rform-vote/vote', form.value, {
+        return this.http.post('http://localhost:8081/rform-vote/vote', form.value, {
           observe: 'response',
           responseType: "text"
         });
       }
 
       deleteUpitnik(id) {
-        return this.http.delete("/rmy-forms/".concat(id));
+        return this.http.delete("http://localhost:8081/rmy-forms/".concat(id));
       }
 
       getUpitnici() {
-        return this.http.get("/rmy-forms/upitnici", {
+        return this.http.get("http://localhost:8081/rmy-forms/upitnici", {
           observe: "response"
         });
       }
 
       getUpitnik(sifra) {
-        return this.http.get("/rform-vote/upitnik/".concat(sifra), {
+        return this.http.get("http://localhost:8081/rform-vote/upitnik/".concat(sifra), {
           observe: "response"
         });
       }
@@ -2915,7 +2917,7 @@
           }
         }
 
-        return this.http.post("/rform-create/", form.value, {
+        return this.http.post("http://localhost:8081/rform-create/", form.value, {
           responseType: "json",
           observe: "response"
         });

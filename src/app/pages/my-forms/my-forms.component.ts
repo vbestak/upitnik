@@ -10,14 +10,16 @@ import { Upitnik } from 'src/app/models/upitnik';
 })
 export class MyFormsComponent implements OnInit {
   upitnici:Upitnik[] = new Array<Upitnik>();
-  
-  constructor(private formService:FormService) { }
+  checked:boolean = false;
 
-  ngOnInit() {
+  constructor(private formService:FormService) {
     this.formService.getUpitnici().subscribe((res)=>{
       this.upitnici = res.body as Upitnik[];
+      this.checked = true;
     });
-  }
+   }
+
+  ngOnInit() {  }
 
   deleteUpitnik(idUpitnik:number){
     this.formService.deleteUpitnik(idUpitnik).subscribe((res)=>{

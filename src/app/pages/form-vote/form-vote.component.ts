@@ -25,9 +25,7 @@ export class FormVoteComponent implements OnInit, OnDestroy {
     this.authService.getUser().subscribe((user)=>{
       this.user = user;
     }); 
-  }
 
-  ngOnInit() {
     let s = this.aRoute.paramMap.subscribe( params => {
       this.id = params.get('id');
       this.subscriptions.add(this.formService.getUpitnik(this.id).subscribe((res)=>{
@@ -40,6 +38,10 @@ export class FormVoteComponent implements OnInit, OnDestroy {
         }));
     });
     this.subscriptions.add(s);
+  }
+
+  ngOnInit() {
+    
   }
 
   ngOnDestroy(){

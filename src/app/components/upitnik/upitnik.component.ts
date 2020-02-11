@@ -47,8 +47,10 @@ export class UpitnikComponent implements OnInit {
 
     if(filled >= 2){
       this.flaggFilled = true;
-      this.formService.sendForm(this.upitnik).subscribe((res)=>{      
-        this.router.navigateByUrl(`form-vote/${res.body['id']}`);
+      this.formService.sendForm(this.upitnik).subscribe((res)=>{  
+        setTimeout(() => {
+          this.router.navigateByUrl(`form-vote/${res.body['id']}`);
+        }, 500);    
       });
     }else{
       this.flaggFilled = false;
